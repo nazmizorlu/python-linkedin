@@ -291,16 +291,16 @@ class LinkedInApplication(object):
         raise_for_error(response)
         return True
 
-    def submit_group_post(self, group_id, title, summary, submitted_url,
-                          submitted_image_url, content_title, description):
-        post = {
-            'title': title, 'summary': summary,
-            'content': {
+    def submit_group_post(self, group_id, title, summary, submitted_url=None,
+                          submitted_image_url=None, content_title=None,
+                          description=None):
+        post = {'title': title, 'summary': summary}
+        if content_title and submitted_url:
+            post['content'] = {
                 'submitted-url': submitted_url,
                 'title': content_title,
                 'description': description
             }
-        }
         if submitted_image_url:
             post['content']['submitted-image-url'] = submitted_image_url
 
