@@ -562,3 +562,13 @@ class LinkedInApplication(object):
         response = self.make_request('GET', url, params=params, headers=headers)
         raise_for_error(response)
         return response.json()
+
+    def get_share_likes(self, post_id, selectors=None, params=None,
+                        headers=None):
+        url = '%s/~/network/updates/key=%s/likes' % (ENDPOINTS.PEOPLE, post_id)
+        if selectors:
+            url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
+
+        response = self.make_request('GET', url, params=params, headers=headers)
+        raise_for_error(response)
+        return response.json()
